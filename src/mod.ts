@@ -14,8 +14,5 @@ export type {
   Migrator,
 };
 
-/**
- * Creates a new migrator instance.
- */
 export { libSQLMigratorConstructor as LibSQLMigrator };
 export { createMigrationScriptIterator };

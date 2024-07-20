@@ -34,7 +34,7 @@ Running the following code will apply the migration scripts to the database:
 ```typescript
 import {
   createMigrationScriptIterator,
-  Migrator,
+  LibSQLMigrator,
 } from "@fardjad/libsql-migrator";
 import { createClient } from "npm:@libsql/client/node";
 
@@ -42,7 +42,7 @@ const client = createClient({
   url: new URL("./db.sqlite", import.meta.url).toString(),
 });
 
-migrator = new Migrator(
+migrator = new LibSQLMigrator(
   client,
   createMigrationScriptIterator(
     new URL("./migrations", import.meta.url).toString(),

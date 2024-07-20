@@ -134,7 +134,7 @@ export type LibSQLMigratorConstructor = new (
 ) => Migrator;
 
 /**
- * Create a new {@link Migrator} instance for LibSQL.
+ * Creates a new {@link Migrator} instance for LibSQL.
  */
 export const libSQLMigratorConstructor: LibSQLMigratorConstructor =
   MigratorInternal;
