@@ -3,7 +3,7 @@ import { type MigrationWithSQL, MigratorInternal } from "./migrator.ts";
 import { basename, extname } from "@std/path";
 
 /**
- * Creates an iterator that yields migration scripts from a directory.
+ * Creates an iterator that yields {@link MigrationWithSQL} objects from a directory.
  *
  * @param migrationsDirectoryPath The path to the directory containing the migration scripts.
  */

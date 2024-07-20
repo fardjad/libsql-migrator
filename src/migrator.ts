@@ -1,5 +1,8 @@
 import type { Client, Transaction } from "@libsql/client";
 
+/**
+ * A {@link Migration} with the SQL script.
+ */
 export type MigrationWithSQL = Migration & {
   /**
    * The SQL script to apply.
@@ -7,7 +10,10 @@ export type MigrationWithSQL = Migration & {
   sql: string;
 };
 
-type Migration = {
+/**
+ * A migration.
+ */
+export type Migration = {
   /**
    * The name of the migration script without the file extension.
    */
@@ -97,16 +103,19 @@ export class MigratorInternal {
 }
 
 /**
- * Applies a series of SQL migration scripts to a LibSQL client or transaction.
+ * Applies a series of SQL migration scripts to a database.
  */
-type Migrator = {
+export type Migrator = {
   /**
    * Apply the migration scripts.
    */
   migrate(): Promise<void>;
 };
 
-type MigratorConstructor = new (
+/**
+ * Creates a new {@link Migrator} instance for LibSQL.
+ */
+export type LibSQLMigratorConstructor = new (
   /**
    * The client or transaction to use to apply the migrations.
    * Committing the transaction and closing the connection should be done by
@@ -124,4 +133,8 @@ type MigratorConstructor = new (
   migrationsTableName?: string,
 ) => Migrator;
 
-export const migratorConstructor: MigratorConstructor = MigratorInternal;
+/**
+ * Create a new {@link Migrator} instance for LibSQL.
+ */
+export const libSQLMigratorConstructor: LibSQLMigratorConstructor =
+  MigratorInternal;
