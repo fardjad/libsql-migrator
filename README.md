@@ -33,8 +33,8 @@ Running the following code will apply the migration scripts to the database:
 
 ```typescript
 import {
-  Migrator,
   createMigrationScriptIterator,
+  Migrator,
 } from "@fardjad/libsql-migrator";
 import { createClient } from "npm:@libsql/client/node";
 
@@ -45,8 +45,8 @@ const client = createClient({
 migrator = new Migrator(
   client,
   createMigrationScriptIterator(
-    new URL("./migrations", import.meta.url).toString()
-  )
+    new URL("./migrations", import.meta.url).toString(),
+  ),
 );
 await migrator.migrate();
 

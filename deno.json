@@ -1,9 +1,9 @@
 {
   "name": "@fardjad/libsql-migrator",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "exports": "./src/mod.ts",
   "tasks": {
-    "test": "deno test -A --watch src"
+    "test": "deno test -A src"
   },
   "imports": {
     "@libsql/client": "npm:@libsql/client@^0.7.0",

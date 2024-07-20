@@ -1,12 +1,15 @@
 name: publish
+
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["ci"]
+    types:
+      - completed
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     permissions:
       contents: read

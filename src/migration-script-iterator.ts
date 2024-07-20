@@ -8,13 +8,15 @@ import { basename, extname } from "@std/path";
  * @param migrationsDirectoryPath The path to the directory containing the migration scripts.
  */
 export const createMigrationScriptIterator = async function* (
-  migrationsDirectoryPath: string
+  migrationsDirectoryPath: string,
 ): AsyncIterable<MigrationWithSQL> {
-  for await (const file of expandGlob("*.sql", {
-    root: migrationsDirectoryPath,
-    followSymlinks: true,
-    includeDirs: false,
-  })) {
+  for await (
+    const file of expandGlob("*.sql", {
+      root: migrationsDirectoryPath,
+      followSymlinks: true,
+      includeDirs: false,
+    })
+  ) {
     const name = basename(file.path, extname(file.path));
     const sql = await Deno.readTextFile(file.path);
     yield {

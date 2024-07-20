@@ -24,7 +24,7 @@ export class MigratorInternal {
   constructor(
     private clientOrTransaction: Client | Transaction,
     private migrations: AsyncIterable<MigrationWithSQL>,
-    private migrationsTableName = "migrations"
+    private migrationsTableName = "migrations",
   ) {}
 
   async migrate() {
@@ -72,7 +72,7 @@ export class MigratorInternal {
       `CREATE TABLE IF NOT EXISTS ${this.migrationsTableName} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL
-      );`
+      );`,
     );
   }
 
@@ -80,7 +80,7 @@ export class MigratorInternal {
     await this.createMigrationTable();
 
     const result = await this.clientOrTransaction.execute(
-      `SELECT name FROM ${this.migrationsTableName} ORDER BY id DESC LIMIT 1;`
+      `SELECT name FROM ${this.migrationsTableName} ORDER BY id DESC LIMIT 1;`,
     );
 
     if (result.rows.length === 0) {
@@ -90,7 +90,7 @@ export class MigratorInternal {
     return {
       name: result.rows[0].name as string,
       versionstamp: MigratorInternal.extractVersionstamp(
-        result.rows[0].name as string
+        result.rows[0].name as string,
       ),
     } satisfies Migration;
   }
@@ -121,7 +121,7 @@ type MigratorConstructor = new (
    * The name of the table to use to store the applied migrations. Defaults to
    * "migrations".
    */
-  migrationsTableName?: string
+  migrationsTableName?: string,
 ) => Migrator;
 
 export const migratorConstructor: MigratorConstructor = MigratorInternal;
