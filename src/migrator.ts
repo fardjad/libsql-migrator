@@ -46,7 +46,7 @@ export class MigratorInternal {
         continue;
       }
 
-      await this.clientOrTransaction.execute(migration.sql);
+      await this.clientOrTransaction.executeMultiple(migration.sql);
       await this.clientOrTransaction.execute({
         sql: `INSERT INTO ${this.migrationsTableName} (name) VALUES (?);`,
         args: [migration.name],

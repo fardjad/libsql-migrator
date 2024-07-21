@@ -211,4 +211,34 @@ describe("migrate", () => {
       assertEquals(tables.rows[0].count, 1);
     });
   });
+
+  describe("when the migration script contains multiple statements", () => {
+    it("should apply all statements", async () => {
+      const migrations = [
+        {
+          name: "0-first",
+          versionstamp: 0,
+          sql: `
+            CREATE TABLE first (id INTEGER);
+            INSERT INTO first (id) VALUES (1);
+          `,
+        },
+      ];
+      client = createClient({ url: ":memory:" });
+      migrator = new MigratorInternal(
+        client,
+        new FakeMigrationWithSQL(migrations),
+        migrationsTableName,
+      );
+
+      await migrator.migrate();
+
+      const rows = await client.execute({
+        sql: `SELECT COUNT(id) as count FROM first;`,
+        args: [],
+      });
+
+      assertEquals(rows.rows[0].count, 1);
+    });
+  });
 });
