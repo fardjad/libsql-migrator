@@ -1,4 +1,4 @@
-import { expandGlob } from "@std/fs";
+import { exists, expandGlob } from "@std/fs";
 import { type MigrationWithSQL, MigratorInternal } from "./migrator.ts";
 import { basename, extname } from "@std/path";
 
@@ -10,6 +10,10 @@ import { basename, extname } from "@std/path";
 export const createMigrationScriptIterator = async function* (
   migrationsDirectoryPath: string,
 ): AsyncIterable<MigrationWithSQL> {
+  if (!(await exists(migrationsDirectoryPath))) {
+    throw new Error(`Directory not found: ${migrationsDirectoryPath}`);
+  }
+
   for await (
     const file of expandGlob("*.sql", {
       root: migrationsDirectoryPath,
