@@ -16,9 +16,9 @@ deno add @fardjad/libsql-migrator
 
 ## Usage
 
-This module expects a directory containing at least one SQL migration scripts.
-The files in the directory must match the regex `\d+-.*\.sql`. The numeric part
-before the hyphen is used to determine the order of the scripts.
+This module expects a directory containing at least one SQL migration script.
+The name of the files in the directory must match the regex `\d+-.*\.sql`. The
+numeric part before the hyphen is used to determine the order of the scripts.
 
 Assuming the following directory structure:
 
@@ -42,10 +42,10 @@ const client = createClient({
   url: new URL("./db.sqlite", import.meta.url).toString(),
 });
 
-migrator = new LibSQLMigrator(
+const migrator = new LibSQLMigrator(
   client,
   createMigrationScriptIterator(
-    new URL("./migrations", import.meta.url).toString(),
+    new URL("./migrations", import.meta.url).pathname,
   ),
 );
 await migrator.migrate();
