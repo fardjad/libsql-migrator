@@ -37,7 +37,7 @@ describe("extractVersionstamp", () => {
         try {
           actual = MigratorInternal.extractVersionstamp(name);
         } catch (e) {
-          actual = e;
+          actual = e as Error;
         }
 
         if (actual instanceof Error && expected instanceof Error) {
