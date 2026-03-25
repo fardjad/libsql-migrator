@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, it } from "@std/testing/bdd";
 import { assertEquals } from "@std/assert";
 import { type MigrationWithSQL, MigratorInternal } from "./migrator.ts";
-import { type Client, createClient } from "npm:@libsql/client/node";
+import { type Client, createClient } from "@libsql/client/node";
 
 class FakeMigrationWithSQL implements AsyncIterable<MigrationWithSQL> {
   constructor(private migrations: MigrationWithSQL[]) {}
